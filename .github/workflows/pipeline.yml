@@ -50,7 +50,7 @@ jobs:
           severity: error
           text: Build & tests failed.
           details: "Commit: ${{ github.event.head_commit.url }}"
-          webhookUrl: ${{ secrets.DISCORD_WEBHOO }}
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
   tag_release:
     runs-on: ubuntu-20.04
     needs: [simple_deployment_pipeline]
