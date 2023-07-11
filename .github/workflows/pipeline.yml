@@ -36,6 +36,21 @@ jobs:
         with:
           service-id: ${{ secrets.RENDER_SERVICE_ID }}
           api-key: ${{ secrets.RENDER_API_KEY }}
+      - name: Build success Discord notification
+        if: ${{ success() }}
+        uses: rjstone/discord-webhook-notify@v1
+        with:
+          severity: info
+          text: Build & tests succeeded.
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+      - name: Build failure Discord notification
+        if: ${{ failure() }}
+        uses: rjstone/discord-webhook-notify@v1
+        with:
+          severity: error
+          text: Build & tests failed.
+          details: "Commit: ${{ github.event.head_commit.url }}"
+          webhookUrl: ${{ secrets.DISCORD_WEBHOO }}
   tag_release:
     runs-on: ubuntu-20.04
     needs: [simple_deployment_pipeline]
