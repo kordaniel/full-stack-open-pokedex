@@ -46,7 +46,7 @@ jobs:
       - name: Build failure Discord notification
         if: ${{ failure() }}
         env:
-          HEAD_COMMIT_DBG: ${{ toJson(github.event.head_commit.url) }}
+          HEAD_COMMIT_DBG: ${{ toJson(github.event.head_commit) }}
         run: |
           echo "$HEAD_COMMIT_DBG"
         #uses: rjstone/discord-webhook-notify@v1
