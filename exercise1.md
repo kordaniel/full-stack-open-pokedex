@@ -1,0 +1,13 @@
+# Exercise 11.1 Warming up
+
+### Things to consider when setting up a CI environment for a project built using python 3.
+Python is an easy language for this, since it does not require compiling. Also in contrast to many other languages python has a proposed style guide (PEP8).  
+
+There are many available linters available for python that lints against the PEP8 style guide, but one that seems to be widely used is called *pylint*. Many projects also seem to be using auto-formatters, that format the code based on some rules. In my limited experiences these rarely, if ever, produce well structured, easy to read and maintainable code. So I would try to avoid these kinds of tools, if possible and solely rely on linters.  
+
+Python standard library includes the module unittest, with which test cases can be built and run. This on its own might suffice for smaller projects, but if the amount of test cases grows, one should consider using a testrunner framework to run the tests in a more organized way. With the help of these one can run a different set of tests at different stages of the CI pipeline. They can also produce nice summaries of the results. One popular option is *pytest*.  
+
+A build step is often required, even if python does not need to be compiled. This usually includes setting up the environment, which might have different configurations in production/dev/test environments, downloading and installing libraries, updating containers and even pushing & running the code to the platform where it is intended to run. *Pip*, which is a part of python or *poetry* are popular alternatives to managing the requirements in a python project.  
+
+I’ve never used Jenkins or Github actions myself. I've used *CircleCI* in one project and it seemed to work quite well, so that is one alternative. I think that for small or hobby projects cloud-based services are practically always a better choice. They work, there is plenty of help available and the pricing is quite low, if not even free. In larger projects you have to at least consider security and billing and which alternative is better depends on the project. If we were to use a cloud-based service, then we would have to be more careful that no secrets (code, data, passwords etc) would ever be uploaded to it. In contrast, if we run everything on our own self-managed servers, then we could test everything, even including integration tests with real data in production mode. A slower build process wouldn’t be as costly as when using a cloud server. On the other hand setting up a self-hosted CI environment can probably be quite time-consuming and thus a costly process.  
+
