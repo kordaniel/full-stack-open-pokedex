@@ -45,16 +45,12 @@ jobs:
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
       - name: Build failure Discord notification
         if: ${{ failure() }}
-        #env:
-        #  HEAD_COMMIT_DBG: ${{ toJson(github.event.head_commit) }}
-        #run: |
-        #  echo "$HEAD_COMMIT_DBG"
         uses: rjstone/discord-webhook-notify@v1
         with:
           severity: error
           text: Build & tests failed.
-          details: "Commit: ${{ github.event.pull_request._links.html.href }}"
-          #webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+          details: "Pull request: ${{ github.event.pull_request._links.html.href }}"
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
   tag_release:
     runs-on: ubuntu-20.04
     needs: [simple_deployment_pipeline]
