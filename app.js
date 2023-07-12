@@ -11,9 +11,16 @@ app.get('/version', (req, res) => {
 })
 
 app.get('/health', (req, res) => {
-  throw 'error'
+  try {
+    throw 'App is failing (intentionally)'
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error.message)
+    return res.sendStatus(500).end()
+  }
+
   // eslint-disable-next-line no-unreachable
-  res.send('OK')
+  return res.send('OK')
 })
 
 app.listen(PORT, () => {
